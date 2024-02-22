@@ -1,26 +1,54 @@
 <script lang="ts">
   import Papa from "papaparse";
 
-  let synchro = "Paste Synchro output here";
+  let synchro = "";
 
-  let results: any;
+  let results: string[] = [];
 
-  function parseResults() {
-    results = Papa.parse(synchro, {
-      skipEmptyLines: true,
-      transform: (str) => str.trim(),
-    }).data;
+  function update() {
+    results = [];
 
-    console.log(results);
+    let rawData = parseCSV(synchro);
+    console.log(rawData);
+
+    let intersections = groupByIntersection(rawData);
+    console.log(intersections);
+
+    intersections.forEach((int) => {
+      results.push(int[1][0]);
+    });
   }
 
-  parseResults();
+  function parseCSV(data: string) {
+    let result = Papa.parse(synchro, {
+      skipEmptyLines: true,
+      transform: (str) => str.trim(),
+    });
+
+    return result.data as string[];
+  }
+
+  function groupByIntersection(results: string[]) {
+    let groups: string[][] = [];
+    let intersection: string[] = [];
+    results.forEach((row: string) => {
+      if (row == "Lanes, Volumes, Timings") {
+        groups.push(intersection);
+        intersection = [];
+      }
+      intersection.push(row);
+    });
+    groups.push(intersection);
+    groups.shift();
+
+    return groups;
+  }
 </script>
 
 <h1 class="text-2xl font-bold mb-2">Synchro Result Aggregator</h1>
 
 <main class="flex flex-grow">
-  <textarea bind:value={synchro} on:input={parseResults} spellcheck="false" class="grow shrink-0 basis-1/2 p-1 border-2 border-black"></textarea>
+  <textarea bind:value={synchro} on:input={update} placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 basis-1/2 p-1 border-2 border-black"></textarea>
   <div class="grow shrink-0 basis-1/2 p-1">
     {#each results as line}
       {line} <br />
