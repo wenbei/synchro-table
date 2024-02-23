@@ -18,11 +18,10 @@
   let table: results = {};
 
   function update() {
-    let table = {};
+    table = {};
 
     synchro = synchro.replaceAll(":", "	");
     let rawData = parseCSV(synchro);
-    // console.log("raw", rawData);
 
     let intersections = groupByIntersection(rawData);
     console.log("groups", intersections);
@@ -57,25 +56,16 @@
   }
 
   function parseResults(results: rowGroup[]) {
-    let labels = ["Control Type", "Intersection Signal Delay", "v/c Ratio"];
-    let parsedResults: rowGroup[] = [];
-    let table: any = {};
-
     results.forEach((intersection) => {
-      let result: row[] = intersection.slice(0, 4);
       let tableData: any = {};
-
       let name = intersection[1][1];
+      tableData.name = name;
       intersection.forEach((line) => {
-        if (labels.includes(line[0])) {
-          result.push(line);
-          let [label, data] = parseRow(line);
-          tableData[label] = data;
-        }
+        let [label, data] = parseRow(line);
+        if (label) tableData[label] = data;
       });
 
-      table[name] = result;
-      parsedResults.push(result);
+      table[name] = tableData;
     });
 
     return table;
@@ -85,6 +75,9 @@
     switch (line[0]) {
       case "Control Type":
         return ["type", line[1]];
+
+      case "Intersection Signal Delay":
+        return ["delay", line[1]];
     }
     return [];
   }
@@ -98,18 +91,20 @@
     <table class="table-auto w-full text-center border-2 border-black">
       <thead>
         <th>Intersection</th>
+        <th>Type</th>
         <th>Delay</th>
-        <th>v/c Ratio</th>
+        <!-- <th>v/c Ratio</th> -->
       </thead>
       <tbody>
         {#each Object.values(table) as row}
           <tr>
             <td> {row.name} </td>
+            <td> {row.type}</td>
             <td> {row.delay}</td>
             <td>
-              {#each Object.entries(row.vc) as cell}
+              <!-- {#each Object.entries(row.vc) as cell}
                 {cell[0]}: {cell[1].toString().padEnd(4, "0")}<br />
-              {/each}
+              {/each} -->
             </td>
           </tr>
         {/each}
