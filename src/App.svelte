@@ -9,7 +9,7 @@
   interface intersectionData {
     name: string;
     type: string;
-    delay: number[];
+    delay: string[];
     movements: string[];
     vc: string[];
   }
@@ -42,11 +42,11 @@
     return result.data as row[];
   }
 
-  function groupByIntersection(results: row[]) {
+  function groupByIntersection(rawData: row[]) {
     let headings = ["Lanes, Volumes, Timings", "Queues", "HCM Signalized Intersection Capacity Analysis", "HCM Unsignalized Intersection Capacity Analysis"];
     let groups: rowGroup[] = [];
     let intersection: row[] = [];
-    results.forEach((line: row) => {
+    rawData.forEach((line: row) => {
       if (headings.includes(line[0])) {
         groups.push(intersection);
         intersection = [];
@@ -70,7 +70,19 @@
         if (label) rowData[label as string] = data;
       });
 
-      rowData.movements = rowData["lane-group"];
+      // skip synchro unsignalized
+      if (rowData.type == "synchro" && rowData.signal == "Unsignalized") return;
+
+      // skip queues
+      if (rowData.type == "synchro-queues") return;
+
+      // identify side street delay
+      if (rowData.type == "hcm-unsignalized") {
+        let control = rowData.sign;
+        let delay = rowData.movementDelay;
+      }
+
+      rowData.movements = rowData["laneGroup"];
       table[name] = rowData;
     });
 
@@ -88,15 +100,26 @@
       case "HCM Unsignalized Intersection Capacity Analysis":
         return ["type", "hcm-unsignalized"];
 
-      case "Lane Group":
-        return ["lane-group", line.slice(2)];
-      case "Lane Configurations":
-        return ["lane-config", line.slice(2)];
-
-      case "Control Type":
+      case "Lane Group": // synchro
+      case "Movement": // HCM2000 signalized
+        return ["laneGroup", line.slice(2)];
+      case "Lane Configurations": // synchro
+      case "Lanes": // HCM2000 unsignalized
+        return ["laneConfig", line.slice(2)];
+      case "Control Type": // HCM2000 signalized
         return ["signal", line[1]];
-      case "Intersection Signal Delay":
+      case "Sign Control": // HCM2000 unsignalized
+        return ["sign", line.slice(2)];
+
+      case "Intersection Signal Delay": // synchro
         return ["delay", [line[7], line[1]]];
+      case "HCM 2000 Control Delay": // HCM2000 signalized
+        return ["delay", [line[10], line[4]]];
+      case "Control Delay (s)": // HCM2000 unsignalized, per movement
+        return ["movementDelay", line.slice(2)];
+      // TODO: need LOS
+      // case "Average Delay": // HCM2000 unsignalized, intersection average
+      //   return ["delay", line[4]];
       case "v/c Ratio":
         return ["vc", line.slice(2)];
     }
@@ -128,7 +151,7 @@
           <tr>
             <td> {row.name} </td>
             <td> {row.type}</td>
-            <td> {row.delay[0]} ({row.delay[1]})</td>
+            <td> {row.delay[0]} ({Math.round(parseFloat(row.delay[1]))})</td>
             <td>
               {#each row.vc as vc, index}
                 {#if parseFloat(vc) >= criticaVC}
