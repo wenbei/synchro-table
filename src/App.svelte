@@ -14,6 +14,8 @@
     vc: string[];
   }
 
+  let criticaVC = 0.85;
+
   let synchro = "";
 
   let table: results = {};
@@ -64,7 +66,7 @@
       rowData.name = name;
 
       intersection.forEach((line) => {
-        let [label, ...data] = parseRow(line);
+        let [label, data] = parseRow(line);
         if (label) rowData[label as string] = data;
       });
 
@@ -87,16 +89,16 @@
         return ["type", "hcm-unsignalized"];
 
       case "Lane Group":
-        return ["lane-group", ...line.slice(2)];
+        return ["lane-group", line.slice(2)];
       case "Lane Configurations":
-        return ["lane-config", ...line.slice(2)];
+        return ["lane-config", line.slice(2)];
 
       case "Control Type":
         return ["signal", line[1]];
       case "Intersection Signal Delay":
-        return ["delay", line[7], line[1]];
+        return ["delay", [line[7], line[1]]];
       case "v/c Ratio":
-        return ["vc", ...line.slice(2)];
+        return ["vc", line.slice(2)];
     }
     return [];
   }
@@ -105,8 +107,15 @@
 <h1 class="text-2xl font-bold mb-2">Synchro Result Aggregator</h1>
 
 <main class="flex flex-grow">
-  <textarea bind:value={synchro} on:input={update} placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 basis-1/2 p-1 border-2 border-black"></textarea>
+  <textarea bind:value={synchro} on:input={update} wrap="off" placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 basis-1/2 text-nowrap p-1 border-2 border-black"
+  ></textarea>
+
   <div class="grow shrink-0 basis-1/2 p-1">
+    <div>
+      <h4 class="font-bold">Options:</h4>
+      <span>Critical v/c Ratio</span><input bind:value={criticaVC} class="w-20 m-2 border border-black" />
+    </div>
+
     <table class="table-auto w-full text-center border-2 border-black">
       <thead>
         <th>Intersection</th>
@@ -122,7 +131,9 @@
             <td> {row.delay[0]} ({row.delay[1]})</td>
             <td>
               {#each row.vc as vc, index}
-                {row.movements[index]}: {vc.toString().padEnd(4, "0")}<br />
+                {#if parseFloat(vc) >= criticaVC}
+                  {row.movements[index]}: {vc.padEnd(4, "0")}<br />
+                {/if}
               {/each}
             </td>
           </tr>
