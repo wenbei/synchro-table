@@ -9,8 +9,9 @@
   interface intersectionData {
     name: string;
     type: string;
-    delay: number;
-    vc: Object;
+    delay: number[];
+    movements: string[];
+    vc: string[];
   }
 
   let synchro = "";
@@ -40,10 +41,11 @@
   }
 
   function groupByIntersection(results: row[]) {
+    let headings = ["Lanes, Volumes, Timings", "Queues", "HCM Signalized Intersection Capacity Analysis", "HCM Unsignalized Intersection Capacity Analysis"];
     let groups: rowGroup[] = [];
     let intersection: row[] = [];
     results.forEach((line: row) => {
-      if (line[0] == "Lanes, Volumes, Timings" || line[0] == "Queues") {
+      if (headings.includes(line[0])) {
         groups.push(intersection);
         intersection = [];
       }
@@ -57,15 +59,17 @@
 
   function parseResults(results: rowGroup[]) {
     results.forEach((intersection) => {
-      let tableData: any = {};
+      let rowData: any = {};
       let name = intersection[1][1];
-      tableData.name = name;
+      rowData.name = name;
+
       intersection.forEach((line) => {
-        let [label, data] = parseRow(line);
-        if (label) tableData[label] = data;
+        let [label, ...data] = parseRow(line);
+        if (label) rowData[label as string] = data;
       });
 
-      table[name] = tableData;
+      rowData.movements = rowData["lane-group"];
+      table[name] = rowData;
     });
 
     return table;
@@ -73,11 +77,26 @@
 
   function parseRow(line: row) {
     switch (line[0]) {
-      case "Control Type":
-        return ["type", line[1]];
+      case "Lanes, Volumes, Timings":
+        return ["type", "synchro"];
+      case "Queues":
+        return ["type", "synchro-queues"];
+      case "HCM Signalized Intersection Capacity Analysis":
+        return ["type", "hcm-signalized"];
+      case "HCM Unsignalized Intersection Capacity Analysis":
+        return ["type", "hcm-unsignalized"];
 
+      case "Lane Group":
+        return ["lane-group", ...line.slice(2)];
+      case "Lane Configurations":
+        return ["lane-config", ...line.slice(2)];
+
+      case "Control Type":
+        return ["signal", line[1]];
       case "Intersection Signal Delay":
-        return ["delay", line[1]];
+        return ["delay", line[7], line[1]];
+      case "v/c Ratio":
+        return ["vc", ...line.slice(2)];
     }
     return [];
   }
@@ -93,18 +112,18 @@
         <th>Intersection</th>
         <th>Type</th>
         <th>Delay</th>
-        <!-- <th>v/c Ratio</th> -->
+        <th>v/c Ratio</th>
       </thead>
       <tbody>
         {#each Object.values(table) as row}
           <tr>
             <td> {row.name} </td>
             <td> {row.type}</td>
-            <td> {row.delay}</td>
+            <td> {row.delay[0]} ({row.delay[1]})</td>
             <td>
-              <!-- {#each Object.entries(row.vc) as cell}
-                {cell[0]}: {cell[1].toString().padEnd(4, "0")}<br />
-              {/each} -->
+              {#each row.vc as vc, index}
+                {row.movements[index]}: {vc.toString().padEnd(4, "0")}<br />
+              {/each}
             </td>
           </tr>
         {/each}
