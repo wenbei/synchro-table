@@ -14,11 +14,19 @@
     vc: string[];
   }
 
-  let criticaVC = 0.85;
-
+  let files: FileList;
   let synchro = "";
 
   let table: results = {};
+
+  let criticaVC = 0.85;
+
+  async function pasteFile() {
+    let file = files[0];
+    let input = await file.text();
+    synchro = input;
+    update();
+  }
 
   function update() {
     table = {};
@@ -130,8 +138,11 @@
 <h1 class="text-2xl font-bold mb-2">Synchro Result Aggregator</h1>
 
 <main class="flex flex-grow">
-  <textarea bind:value={synchro} on:input={update} wrap="off" placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 basis-1/2 text-nowrap p-1 border-2 border-black"
-  ></textarea>
+  <div class="flex flex-col grow shrink-0 basis-1/2">
+    <input type="file" bind:files on:change={pasteFile} class="w-full my-2 border border-black" />
+
+    <textarea bind:value={synchro} on:input={update} wrap="off" placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 text-nowrap p-1 border-2 border-black"></textarea>
+  </div>
 
   <div class="grow shrink-0 basis-1/2 p-1">
     <div>
@@ -142,7 +153,7 @@
     <table class="table-auto w-full text-center border-2 border-black">
       <thead>
         <th>Intersection</th>
-        <th>Type</th>
+        <!-- <th>Type</th> -->
         <th>Delay</th>
         <th>v/c Ratio</th>
       </thead>
@@ -150,7 +161,7 @@
         {#each Object.values(table) as row}
           <tr>
             <td> {row.name} </td>
-            <td> {row.type}</td>
+            <!-- <td> {row.type}</td> -->
             <td> {row.delay[0]} ({Math.round(parseFloat(row.delay[1]))})</td>
             <td>
               {#each row.vc as vc, index}
