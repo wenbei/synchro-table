@@ -69,7 +69,10 @@
 
   function parseResults(results: rowGroup[]) {
     results.forEach((intersection) => {
-      let rowData: any = {};
+      let rowData: any = {
+        delay: ["Error", "0"],
+        vc: [],
+      } satisfies Partial<intersectionData>;
       let name = intersection[1][1];
       rowData.name = name;
 
@@ -168,6 +171,8 @@
                 {#if parseFloat(vc) >= criticaVC}
                   {row.movements[index]}: {vc.padEnd(4, "0")}<br />
                 {/if}
+              {:else}
+                Error
               {/each}
             </td>
           </tr>
