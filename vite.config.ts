@@ -5,19 +5,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte(), tsconfigPaths()],
-  server: {
-    // CORS proxy for testing
-    proxy: {
-      "/api": {
-        target: "https://ckan0.cf.opendata.inter.prod-toronto.ca/api",
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
-  },
   publicDir: false,
-  base: "./", // Debug
+  base: "./",
   build: {
     outDir: "public",
     target: "esnext",
