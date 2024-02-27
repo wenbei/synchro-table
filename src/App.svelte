@@ -93,7 +93,7 @@
         let delay = rowData.movementDelay;
       }
 
-      rowData.movements = rowData["laneGroup"];
+      rowData.movements = parseLaneConfig(rowData.laneGroup, rowData.laneConfig);
       table[name] = rowData;
     });
 
@@ -136,6 +136,25 @@
     }
     return [];
   }
+
+  function parseLaneConfig(group: string[], config: string[]) {
+    let movements: string[] = [];
+    group.forEach((lane, index) => {
+      if (config[index] == "0") return;
+
+      let movement = lane.substring(0, 2).concat("-");
+      if (config[index].includes("<")) {
+        movement = movement.concat("L");
+      }
+      movement = movement.concat(lane.at(2) as string);
+      if (config[index].includes(">")) {
+        movement = movement.concat("R");
+      }
+      movements.push(movement);
+    });
+
+    return movements;
+  }
 </script>
 
 <h1 class="text-2xl font-bold mb-2">Synchro Result Aggregator</h1>
@@ -169,7 +188,7 @@
             <td>
               {#each row.vc as vc, index}
                 {#if parseFloat(vc) >= criticaVC}
-                  {row.movements[index]}: {vc.padEnd(4, "0")}<br />
+                  {row.movements[index]} ({vc.padEnd(4, "0")})<br />
                 {/if}
               {:else}
                 Error
