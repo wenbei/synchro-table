@@ -114,7 +114,10 @@ export function parseRow(line: row) {
 export function parseLaneConfig(group: string[], config: string[]) {
   let movements: string[] = [];
   group.forEach((lane, index) => {
-    if (config[index] == "0") return;
+    if (config[index] == "0" || config[index] == "") {
+      movements.push("n/a");
+      return;
+    }
 
     let movement = lane.substring(0, 2).concat("-");
     if (config[index].includes("<")) {

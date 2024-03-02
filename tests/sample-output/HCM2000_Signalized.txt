@@ -1,0 +1,154 @@
+HCM Signalized Intersection Capacity Analysis
+1: Side1 & Main	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lane Configurations               		1	1	1	1	1	1	1	1	1	1	1	1
+Traffic Volume (vph)              		101	102	103	104	105	106	107	108	109	110	111	112
+Future Volume (vph)               		101	102	103	104	105	106	107	108	109	110	111	112
+Ideal Flow (vphpl)                		1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900
+Total Lost time (s)               		4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5
+Lane Util. Factor                 		1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+Frt                               		1.00	1.00	0.85	1.00	1.00	0.85	1.00	1.00	0.85	1.00	1.00	0.85
+Flt Protected                     		0.95	1.00	1.00	0.95	1.00	1.00	0.95	1.00	1.00	0.95	1.00	1.00
+Satd. Flow (prot)                 		1770	1863	1583	1770	1863	1583	1770	1863	1583	1770	1863	1583
+Flt Permitted                     		0.68	1.00	1.00	0.69	1.00	1.00	0.68	1.00	1.00	0.68	1.00	1.00
+Satd. Flow (perm)                 		1273	1863	1583	1277	1863	1583	1265	1863	1583	1270	1863	1583
+Peak-hour factor, PHF             		0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92
+Adj. Flow (vph)                   		110	111	112	113	114	115	116	117	118	120	121	122
+RTOR Reduction (vph)              		0	0	67	0	0	69	0	0	71	0	0	73
+Lane Group Flow (vph)             		110	111	45	113	114	46	116	117	47	120	121	49
+Turn Type                         		Perm	NA	Perm	Perm	NA	Perm	Perm	NA	Perm	Perm	NA	Perm
+Protected Phases                  			4			8			2			6	
+Permitted Phases                  		4		4	8		8	2		2	6		6
+Actuated Green, G (s)             		18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0
+Effective Green, g (s)            		18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0	18.0
+Actuated g/C Ratio                		0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40
+Clearance Time (s)                		4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5	4.5
+Lane Grp Cap (vph)                		509	745	633	510	745	633	506	745	633	508	745	633
+v/s Ratio Prot                    			0.06			0.06			0.06			0.06	
+v/s Ratio Perm                    		0.09		0.03	c0.09		0.03	0.09		0.03	c0.09		0.03
+v/c Ratio                         		0.22	0.15	0.07	0.22	0.15	0.07	0.23	0.16	0.07	0.24	0.16	0.08
+Uniform Delay, d1                 		8.9	8.6	8.3	8.9	8.6	8.3	8.9	8.6	8.3	8.9	8.7	8.4
+Progression Factor                		1.00	1.00	1.00	1.02	1.01	1.49	1.00	1.00	1.00	1.00	1.00	1.00
+Incremental Delay, d2             		1.0	0.4	0.2	1.0	0.4	0.2	1.1	0.4	0.2	1.1	0.5	0.2
+Delay (s)                         		9.8	9.0	8.6	10.0	9.2	12.7	10.0	9.1	8.6	10.0	9.1	8.6
+Level of Service                  		A	A	A	B	A	B	A	A	A	B	A	A
+Approach Delay (s)                			9.1			10.6			9.2			9.3	
+Approach LOS                      			A			B			A			A	
+
+Intersection Summary
+HCM 2000 Control Delay            				9.6	HCM 2000 Level of Service					A
+HCM 2000 Volume to Capacity ratio 				0.23
+Actuated Cycle Length (s)         				45.0	Sum of lost time (s)					9.0
+Intersection Capacity Utilization 				32.7%	ICU Level of Service					A
+Analysis Period (min)             				15
+c    Critical Lane Group
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
+
+HCM Signalized Intersection Capacity Analysis
+2: Side2 & Main	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lane Configurations               		0	<2	0	0	2>	0	0	<1>	0	0	<1>	0
+Traffic Volume (vph)              		101	102	0	0	105	106	107	108	109	110	111	112
+Future Volume (vph)               		101	102	0	0	105	106	107	108	109	110	111	112
+Ideal Flow (vphpl)                		1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900
+Total Lost time (s)               			4.5			4.5			4.5			4.5	
+Lane Util. Factor                 			0.95			0.95			1.00			1.00	
+Frt                               			1.00			0.92			0.95			0.95	
+Flt Protected                     			0.98			1.00			0.98			0.98	
+Satd. Flow (prot)                 			3453			3273			1749			1749	
+Flt Permitted                     			0.74			1.00			0.79			0.80	
+Satd. Flow (perm)                 			2633			3273			1414			1417	
+Peak-hour factor, PHF             		0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92
+Adj. Flow (vph)                   		110	111	0	0	114	115	116	117	118	120	121	122
+RTOR Reduction (vph)              		0	0	0	0	95	0	0	25	0	0	25	0
+Lane Group Flow (vph)             		0	221	0	0	134	0	0	326	0	0	338	0
+Turn Type                         		Perm	NA			NA		Perm	NA		Perm	NA	
+Protected Phases                  			4			8			2			6	
+Permitted Phases                  		4						2			6		
+Actuated Green, G (s)             			7.8			7.8			28.2			28.2	
+Effective Green, g (s)            			7.8			7.8			28.2			28.2	
+Actuated g/C Ratio                			0.17			0.17			0.63			0.63	
+Clearance Time (s)                			4.5			4.5			4.5			4.5	
+Vehicle Extension (s)             			3.0			3.0			3.0			3.0	
+Lane Grp Cap (vph)                			456			567			886			887	
+v/s Ratio Prot                    						0.04							
+v/s Ratio Perm                    			c0.08						0.23			c0.24	
+v/c Ratio                         			0.48			0.24			0.37			0.38	
+Uniform Delay, d1                 			16.8			16.0			4.1			4.1	
+Progression Factor                			1.14			1.00			1.00			1.00	
+Incremental Delay, d2             			0.8			0.2			1.2			1.2	
+Delay (s)                         			20.0			16.2			5.2			5.4	
+Level of Service                  			B			B			A			A	
+Approach Delay (s)                			20.0			16.2			5.2			5.4	
+Approach LOS                      			B			B			A			A	
+
+Intersection Summary
+HCM 2000 Control Delay            				10.2	HCM 2000 Level of Service					B
+HCM 2000 Volume to Capacity ratio 				0.40
+Actuated Cycle Length (s)         				45.0	Sum of lost time (s)					9.0
+Intersection Capacity Utilization 				48.0%	ICU Level of Service					A
+Analysis Period (min)             				15
+c    Critical Lane Group
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
+
+HCM Signalized Intersection Capacity Analysis
+3: Main & Side3	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lane Configurations               		0	2			2>	0				1		1
+Traffic Volume (vph)              		0	102			105	106				110		112
+Future Volume (vph)               		0	102			105	106				110		112
+Ideal Flow (vphpl)                		1900	1900			1900	1900				1900		1900
+Total Lost time (s)               			4.5			4.5					4.5		4.5
+Lane Util. Factor                 			0.95			0.95					1.00		1.00
+Frt                               			1.00			0.92					1.00		0.85
+Flt Protected                     			1.00			1.00					0.95		1.00
+Satd. Flow (prot)                 			3539			3273					1770		1583
+Flt Permitted                     			1.00			1.00					0.95		1.00
+Satd. Flow (perm)                 			3539			3273					1770		1583
+Peak-hour factor, PHF             		0.92	0.92			0.92	0.92				0.92		0.92
+Adj. Flow (vph)                   		0	111			114	115				120		122
+RTOR Reduction (vph)              		0	0			96	0				0		51
+Lane Group Flow (vph)             		0	111			133	0				120		71
+Turn Type                         			NA			NA					Prot		Perm
+Protected Phases                  			4			8					6		
+Permitted Phases                  													6
+Actuated Green, G (s)             			5.8			5.8					20.8		20.8
+Effective Green, g (s)            			5.8			5.8					20.8		20.8
+Actuated g/C Ratio                			0.16			0.16					0.58		0.58
+Clearance Time (s)                			4.5			4.5					4.5		4.5
+Vehicle Extension (s)             			3.0			3.0					3.0		3.0
+Lane Grp Cap (vph)                			576			533					1034		924
+v/s Ratio Prot                    			0.03			c0.04					c0.07		
+v/s Ratio Perm                    													0.05
+v/c Ratio                         			0.19			0.25					0.12		0.08
+Uniform Delay, d1                 			12.9			13.0					3.3		3.2
+Progression Factor                			1.00			1.00					1.00		1.00
+Incremental Delay, d2             			0.2			0.2					0.2		0.2
+Delay (s)                         			13.0			13.2					3.5		3.4
+Level of Service                  			B			B					A		A
+Approach Delay (s)                			13.0			13.2					3.5		
+Approach LOS                      			B			B					A		
+
+Intersection Summary
+HCM 2000 Control Delay            				9.1	HCM 2000 Level of Service					A
+HCM 2000 Volume to Capacity ratio 				0.15
+Actuated Cycle Length (s)         				35.6	Sum of lost time (s)					9.0
+Intersection Capacity Utilization 				20.7%	ICU Level of Service					A
+Analysis Period (min)             				15
+c    Critical Lane Group
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
