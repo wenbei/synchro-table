@@ -22,6 +22,17 @@ describe("parse Synchro results", () => {
     expect(Object.keys(results)).toEqual(["Side1 & Main", "Side2 & Main", "Main & Side3"]);
   });
 
+  test("type", () => {
+    let type = [];
+    let control = [];
+    for (const intersection of Object.values(results)) {
+      type.push(intersection.type);
+      control.push(intersection.control);
+    }
+    expect(type).toEqual(["synchro", "synchro", "synchro"]);
+    expect(control).toEqual(["Pretimed", "Actuated-Coordinated", "Actuated-Uncoordinated"]);
+  });
+
   test("lane configuration", () => {
     let config = [];
     for (const intersection of Object.values(results)) {

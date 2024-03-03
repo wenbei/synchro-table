@@ -18,8 +18,18 @@ describe("parse HCM2000 signalized results", () => {
   let groups = groupByIntersection(data);
   let results = parseResults(groups);
 
-  test("names", () => {
+  test("name", () => {
     expect(Object.keys(results)).toEqual(["Side1 & Main", "Side2 & Main", "Main & Side3"]);
+  });
+
+  test("type", () => {
+    let type = [];
+    let control = [];
+    for (const intersection of Object.values(results)) {
+      type.push(intersection.type);
+      control.push(intersection.control);
+    }
+    expect(type).toEqual(["hcm-signalized", "hcm-signalized", "hcm-signalized"]);
   });
 
   test("lane configuration", () => {

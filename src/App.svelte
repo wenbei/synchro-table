@@ -57,11 +57,15 @@
             <td> {row.delay[0]} ({Math.round(parseFloat(row.delay[1]))})</td>
             <td>
               {#each row.vc as vc, index}
-                {#if parseFloat(vc) >= criticaVC}
+                {#if row.type != "hcm-unsignalized"}
+                  {#if parseFloat(vc) >= criticaVC}
+                    {row.movements[index]} ({vc.padEnd(4, "0")})<br />
+                  {/if}
+                {:else}
                   {row.movements[index]} ({vc.padEnd(4, "0")})<br />
                 {/if}
               {:else}
-                Error
+                --
               {/each}
             </td>
           </tr>

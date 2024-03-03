@@ -5,9 +5,11 @@ type rowGroup = row[];
 export interface intersectionData {
   name: string;
   type: string;
+  control: string;
   delay: string[];
   movements: string[];
   vc: string[];
+  [key: string]: any;
 }
 export type results = {
   [key: string]: intersectionData;
@@ -43,10 +45,10 @@ export function parseResults(results: rowGroup[]) {
   let table: results = {};
 
   results.forEach((intersection) => {
-    let rowData: any = {
+    let rowData: Partial<intersectionData> = {
       delay: ["Error", "0"],
       vc: [],
-    } satisfies Partial<intersectionData>;
+    };
     let name = intersection[1][1];
     rowData.name = name;
 
@@ -54,21 +56,32 @@ export function parseResults(results: rowGroup[]) {
       let [label, data] = parseRow(line);
       if (label) rowData[label as string] = data;
     });
+    rowData.movements = parseLaneConfig(rowData);
 
     // skip synchro unsignalized
-    if (rowData.type == "synchro" && rowData.signal == "Unsignalized") return;
+    if (rowData.type == "synchro" && rowData.control == "Unsignalized") return;
 
     // skip queues
     if (rowData.type == "synchro-queues") return;
 
-    // identify side street delay
+    // identify unsignalized delay and v/c
     if (rowData.type == "hcm-unsignalized") {
-      let control = rowData.sign;
-      let delay = rowData.movementDelay;
+      if (rowData.los) {
+        // all-way stop
+        rowData.control = "All-way Stop";
+        rowData.delay = [rowData.los, rowData.delay];
+      } else {
+        // side street stop
+        rowData.control = "Side-street Stop";
+        let delays: number[] = rowData.movementDelay.map((d: string) => parseFloat(d));
+        let i = delays.indexOf(Math.max(...delays));
+        rowData.delay = [rowData.movementLOS[i], rowData.movementDelay[i]];
+        rowData.vc = [rowData.movementVC[i]];
+        rowData.movements = [rowData.movements[i]];
+      }
     }
 
-    rowData.movements = parseLaneConfig(rowData.laneGroup, rowData.laneConfig);
-    table[name] = rowData;
+    table[name] = rowData as intersectionData;
   });
 
   return table;
@@ -91,8 +104,10 @@ export function parseRow(line: row) {
     case "Lane Configurations": // synchro
     case "Lanes": // HCM2000 unsignalized
       return ["laneConfig", line.slice(2)];
-    case "Control Type": // HCM2000 signalized
-      return ["signal", line[1]];
+    case "Control Type": // synchro
+      return ["control", line[1]];
+    case "Direction, Lane #": // HCM2000 unsignalized
+      return ["lanes", line.slice(2)];
     case "Sign Control": // HCM2000 unsignalized
       return ["sign", line.slice(2)];
 
@@ -100,20 +115,29 @@ export function parseRow(line: row) {
       return ["delay", [line[7], line[1]]];
     case "HCM 2000 Control Delay": // HCM2000 signalized
       return ["delay", [line[10], line[4]]];
+    case "v/c Ratio": // synchro and HCM2000 signalized
+      return ["vc", line.slice(2)];
+
+    case "Level of Service": // HCM2000 unsignalized, all-way stop
+      return ["los", line[4]];
+    case "Delay": // HCM2000 unsignalized, all-way stop
+      return ["delay", line[4]];
     case "Control Delay (s)": // HCM2000 unsignalized, per movement
       return ["movementDelay", line.slice(2)];
-    // TODO: need LOS
-    // case "Average Delay": // HCM2000 unsignalized, intersection average
-    //   return ["delay", line[4]];
-    case "v/c Ratio":
-      return ["vc", line.slice(2)];
+    case "Lane LOS": // HCM2000 unsignalized, per movement
+      return ["movementLOS", line.slice(2)];
+    case "Volume to Capacity": // HCM2000 unsignalized, per movement
+      return ["movementVC", line.slice(2)];
   }
   return [];
 }
 
-export function parseLaneConfig(group: string[], config: string[]) {
+export function parseLaneConfig(rowData: Partial<intersectionData>) {
   let movements: string[] = [];
-  group.forEach((lane, index) => {
+
+  let group: string[] = rowData.laneGroup;
+  let config: string[] = rowData.laneConfig;
+  group.forEach((lane, index: number) => {
     if (config[index] == "0" || config[index] == "") {
       movements.push("n/a");
       return;
@@ -129,6 +153,12 @@ export function parseLaneConfig(group: string[], config: string[]) {
     }
     movements.push(movement);
   });
+
+  if (rowData.type == "hcm-unsignalized") {
+    let lanes: string[] = rowData.lanes;
+
+    movements = lanes;
+  }
 
   return movements;
 }

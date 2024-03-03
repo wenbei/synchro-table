@@ -1,0 +1,140 @@
+HCM Unsignalized Intersection Capacity Analysis
+11: Side4 & Main	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lanes                             		1	2>	0	0	<2	1	0	1>	0	0	<1	0
+Traffic Volume (veh/h)            		101	102	103	104	105	106	0	108	109	110	111	0
+Future Volume (Veh/h)             		101	102	103	104	105	106	0	108	109	110	111	0
+Sign Control                      			Free			Free			Stop			Stop	
+Grade                             			0%			0%			0%			0%	
+Peak Hour Factor                  		0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92
+Hourly flow rate (vph)            		110	111	112	113	114	115	0	117	118	120	121	0
+Pedestrians                       													
+Lane Width (m)                    													
+Walking Speed (m/s)               													
+Percent Blockage                  													
+Right turn flare (veh)            													
+Median type                       			None			None							
+Median storage veh)               													
+Upstream signal (m)               													
+pX, platoon unblocked             													
+vC, conflicting volume            		229			223			730	842	112	792	783	57
+vC1, stage 1 conf vol             													
+vC2, stage 2 conf vol             													
+vCu, unblocked vol                		229			223			730	842	112	792	783	57
+tC, single (s)                    		4.1			4.1			7.5	6.5	6.9	7.5	6.5	6.9
+tC, 2 stage (s)                   													
+tF (s)                            		2.2			2.2			3.5	4.0	3.3	3.5	4.0	3.3
+p0 queue free %                   		92			92			100	53	87	13	56	100
+cM capacity (veh/h)               		1336			1343			179	252	920	138	272	997
+
+Direction, Lane #                 		EB 1	EB 2	EB 3	WB 1	WB 2	WB 3	NB 1	SB 1
+Volume Total                      		110	74	149	151	76	115	235	241
+Volume Left                       		110	0	0	113	0	0	0	120
+Volume Right                      		0	0	112	0	0	115	118	0
+cSH                               		1336	1700	1700	1343	1700	1700	396	183
+Volume to Capacity                		0.08	0.04	0.09	0.08	0.04	0.07	0.59	1.32
+Queue Length 95th (m)             		2.1	0.0	0.0	2.2	0.0	0.0	29.6	110.4
+Control Delay (s)                 		7.9	0.0	0.0	6.1	0.0	0.0	26.5	225.3
+Lane LOS                          		A			A			D	F
+Approach Delay (s)                		2.6			2.7			26.5	225.3
+Approach LOS                      								D	F
+
+Intersection Summary
+Average Delay                     				54.1
+Intersection Capacity Utilization 				49.7%	ICU Level of Service 					A
+Analysis Period (min)             				15
+
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
+
+HCM Unsignalized Intersection Capacity Analysis
+12: Side5 & Main	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lanes                             		0	<1>	0	0	<1>	0	0	1>	0	0	<1>	0
+Sign Control                      			Stop			Stop			Stop			Stop	
+Traffic Volume (vph)              		101	102	103	104	105	106	0	108	109	110	111	112
+Future Volume (vph)               		101	102	103	104	105	106	0	108	109	110	111	112
+Peak Hour Factor                  		0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92	0.92
+Hourly flow rate (vph)            		110	111	112	113	114	115	0	117	118	120	121	122
+
+Direction, Lane #                 		EB 1	WB 1	NB 1	SB 1
+Volume Total (vph)                		333	342	235	363
+Volume Left (vph)                 		110	113	0	120
+Volume Right (vph)                		112	115	118	122
+Hadj (s)                          		-0.10	-0.10	-0.27	-0.10
+Departure Headway (s)             		6.8	6.8	7.0	6.8
+Degree Utilization, x             		0.63	0.65	0.46	0.69
+Capacity (veh/h)                  		481	485	442	491
+Control Delay (s)                 		20.9	21.5	15.9	23.4
+Approach Delay (s)                		20.9	21.5	15.9	23.4
+Approach LOS                      		C	C	C	C
+
+Intersection Summary
+Delay                             				20.9
+Level of Service                  				C
+Intersection Capacity Utilization 				64.5%	ICU Level of Service 					C
+Analysis Period (min)             				15
+
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
+
+HCM Unsignalized Intersection Capacity Analysis
+13: Side6 & Main	02-27-2024
+
+
+Movement                          		EBL	EBT	EBR	WBL	WBT	WBR	NBL	NBT	NBR	SBL	SBT	SBR
+Lanes                             			1>	0	0	1		1>		0			
+Traffic Volume (veh/h)            			102	103	0	105		107		109			
+Future Volume (Veh/h)             			102	103	0	105		107		109			
+Sign Control                      			Free			Free		Stop					
+Grade                             			0%			0%		0%					
+Peak Hour Factor                  			0.92	0.92	0.92	0.92		0.92		0.92			
+Hourly flow rate (vph)            			111	112	0	114		116		118			
+Pedestrians                       													
+Lane Width (m)                    													
+Walking Speed (m/s)               													
+Percent Blockage                  													
+Right turn flare (veh)            													
+Median type                       			None			None							
+Median storage veh)               													
+Upstream signal (m)               													
+pX, platoon unblocked             													
+vC, conflicting volume            					223			281		167			
+vC1, stage 1 conf vol             													
+vC2, stage 2 conf vol             													
+vCu, unblocked vol                					223			281		167			
+tC, single (s)                    					4.1			6.4		6.2			
+tC, 2 stage (s)                   													
+tF (s)                            					2.2			3.5		3.3			
+p0 queue free %                   					100			84		87			
+cM capacity (veh/h)               					1346			709		877			
+
+Direction, Lane #                 		EB 1	WB 1	NB 1
+Volume Total                      		223	114	234
+Volume Left                       		0	0	116
+Volume Right                      		112	0	118
+cSH                               		1700	1700	785
+Volume to Capacity                		0.13	0.07	0.30
+Queue Length 95th (m)             		0.0	0.0	10.0
+Control Delay (s)                 		0.0	0.0	11.5
+Lane LOS                          				B
+Approach Delay (s)                		0.0	0.0	11.5
+Approach LOS                      				B
+
+Intersection Summary
+Average Delay                     				4.7
+Intersection Capacity Utilization 				30.9%	ICU Level of Service 					A
+Analysis Period (min)             				15
+
+
+
+Scenario 1  5:08 pm 10-27-2022 Baseline	Synchro 11 Report
+	Page 0
