@@ -1,9 +1,11 @@
 import { readFileSync } from "fs";
+import { resolve } from "path";
 import { describe, expect, test } from "vitest";
 
 import { groupByIntersection, parseCSV, parseResults } from "src/parse";
 
-const input = readFileSync("tests/sample-output/LanesVolumeTimings.txt", "utf-8").replaceAll(":", "	");
+const file = resolve(__dirname, "sample-output/LanesVolumeTimings.txt");
+const input = readFileSync(file, "utf-8").replaceAll(":", "	");
 
 test("read file into intersections", () => {
   let data = parseCSV(input);
