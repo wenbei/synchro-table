@@ -43,16 +43,16 @@ describe("parse HCM2000 unsignalized results", () => {
     expect(config).toMatchInlineSnapshot(`
       [
         [
-          "SB 1",
+          "SB-LT",
         ],
         [
-          "EB 1",
-          "WB 1",
-          "NB 1",
-          "SB 1",
+          "EB-LTR",
+          "WB-LTR",
+          "NB-TR",
+          "SB-LTR",
         ],
         [
-          "NB 1",
+          "NB-LR",
         ],
       ]
     `);

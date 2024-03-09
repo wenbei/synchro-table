@@ -139,7 +139,7 @@ export function parseLaneConfig(rowData: Partial<intersectionData>) {
   let config: string[] = rowData.laneConfig;
   group.forEach((lane, index: number) => {
     if (config[index] == "0" || config[index] == "") {
-      movements.push("n/a");
+      if (rowData.type != "hcm-unsignalized") movements.push("");
       return;
     }
 
@@ -151,14 +151,14 @@ export function parseLaneConfig(rowData: Partial<intersectionData>) {
     if (config[index].includes(">")) {
       movement = movement.concat("R");
     }
-    movements.push(movement);
+
+    let number = 1;
+    if (rowData.type == "hcm-unsignalized") number = parseInt(config[index].replace(/\W/g, ""));
+    while (number > 0) {
+      movements.push(movement);
+      number -= 1;
+    }
   });
-
-  if (rowData.type == "hcm-unsignalized") {
-    let lanes: string[] = rowData.lanes;
-
-    movements = lanes;
-  }
 
   return movements;
 }
