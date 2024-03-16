@@ -27,22 +27,28 @@
   }
 </script>
 
-<h1 class="text-2xl font-bold mb-2">Synchro Result Aggregator</h1>
+<h1 class="mb-2 text-2xl font-bold">Synchro Result Aggregator</h1>
 
 <main class="flex flex-grow">
-  <div class="flex flex-col grow shrink-0 basis-1/2">
-    <input type="file" bind:files on:change={pasteFile} class="w-full my-2 border border-black" />
+  <div class="flex shrink-0 grow basis-1/2 flex-col">
+    <input type="file" bind:files on:change={pasteFile} class="my-2 w-full border border-black" />
 
-    <textarea bind:value={synchro} on:input={update} wrap="off" placeholder="Paste Synchro output here" spellcheck="false" class="grow shrink-0 text-nowrap p-1 border-2 border-black"></textarea>
+    <textarea
+      bind:value={synchro}
+      on:input={update}
+      wrap="off"
+      placeholder="Paste Synchro output here"
+      spellcheck="false"
+      class="shrink-0 grow text-nowrap border-2 border-black p-1"></textarea>
   </div>
 
-  <div class="grow shrink-0 basis-1/2 p-1">
+  <div class="shrink-0 grow basis-1/2 p-1">
     <div>
       <h4 class="font-bold">Options:</h4>
-      <span>Critical v/c Ratio</span><input bind:value={criticaVC} class="w-20 m-2 border border-black" />
+      <span>Critical v/c Ratio</span><input bind:value={criticaVC} class="m-2 w-20 border border-black" />
     </div>
 
-    <table class="table-auto w-full text-center border-2 border-black">
+    <table class="w-full table-auto border-2 border-black text-center">
       <thead>
         <th>Intersection</th>
         <!-- <th>Type</th> -->
@@ -76,8 +82,8 @@
 </main>
 
 <footer>
-  Disclaimer: This web application is provided "as is". The author does not take responsibility for the accuracy of the provided information. Please do your due dilligence and apply engineering
-  judgement.
+  Disclaimer: This web application is provided "as is". The author does not take responsibility for the accuracy of the
+  provided information. Please do your due dilligence and apply engineering judgement.
 </footer>
 
 <style global lang="postcss">

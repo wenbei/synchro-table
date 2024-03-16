@@ -25,7 +25,12 @@ export function parseCSV(rawData: string) {
 }
 
 export function groupByIntersection(data: row[]) {
-  let headings = ["Lanes, Volumes, Timings", "Queues", "HCM Signalized Intersection Capacity Analysis", "HCM Unsignalized Intersection Capacity Analysis"];
+  let headings = [
+    "Lanes, Volumes, Timings",
+    "Queues",
+    "HCM Signalized Intersection Capacity Analysis",
+    "HCM Unsignalized Intersection Capacity Analysis",
+  ];
   let groups: rowGroup[] = [];
   let intersection: row[] = [];
   data.forEach((line: row) => {
