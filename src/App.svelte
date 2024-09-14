@@ -2,28 +2,23 @@
   import { groupByIntersection, parseCSV, parseResults, type results } from "src/parse";
 
   let files: FileList;
-  let synchro = "";
+  let inputText = "";
 
-  let table: results = {};
+  let results: results = [];
 
   let criticaVC = 0.85;
 
   async function pasteFile() {
     let file = files[0];
-    let input = await file.text();
-    synchro = input;
+    inputText = await file.text();
     update();
   }
 
   function update() {
-    synchro = synchro.replaceAll(":", "	");
-    let rawData = parseCSV(synchro);
-
+    inputText = inputText.replaceAll(":", "	");
+    let rawData = parseCSV(inputText);
     let intersections = groupByIntersection(rawData);
-    console.log("groups", intersections);
-
-    table = parseResults(intersections);
-    console.log("results", table);
+    results = parseResults(intersections);
   }
 </script>
 
@@ -34,7 +29,7 @@
     <input type="file" bind:files on:change={pasteFile} class="my-2 w-full border border-black" />
 
     <textarea
-      bind:value={synchro}
+      bind:value={inputText}
       on:input={update}
       wrap="off"
       placeholder="Paste Synchro output here"
@@ -56,7 +51,7 @@
         <th>v/c Ratio</th>
       </thead>
       <tbody>
-        {#each Object.values(table) as row}
+        {#each results as row}
           <tr>
             <td> {row.name} </td>
             <!-- <td> {row.type}</td> -->

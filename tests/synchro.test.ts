@@ -7,7 +7,7 @@ import { groupByIntersection, parseCSV, parseResults } from "src/parse";
 const file = resolve(__dirname, "sample-output/LanesVolumeTimings.txt");
 const input = readFileSync(file, "utf-8").replaceAll(":", "	");
 
-test("read file into intersections", () => {
+test("read file", () => {
   let data = parseCSV(input);
   expect(data).toHaveLength(358);
 
@@ -15,19 +15,21 @@ test("read file into intersections", () => {
   expect(groups).toHaveLength(6);
 });
 
-describe("parse Synchro results", () => {
+describe("Synchro signalized results", () => {
   let data = parseCSV(input);
   let groups = groupByIntersection(data);
   let results = parseResults(groups);
 
   test("names", () => {
-    expect(Object.keys(results)).toEqual(["Side1 & Main", "Side2 & Main", "Main & Side3"]);
+    let names = [];
+    for (const intersection of results) names.push(intersection.name);
+    expect(names).toEqual(["Side1 & Main", "Side2 & Main", "Main & Side3"]);
   });
 
   test("type", () => {
     let type = [];
     let control = [];
-    for (const intersection of Object.values(results)) {
+    for (const intersection of results) {
       type.push(intersection.type);
       control.push(intersection.control);
     }
@@ -37,7 +39,7 @@ describe("parse Synchro results", () => {
 
   test("lane configuration", () => {
     let config = [];
-    for (const intersection of Object.values(results)) {
+    for (const intersection of results) {
       config.push(intersection.movements);
     }
     expect(config).toMatchInlineSnapshot(`
@@ -90,7 +92,7 @@ describe("parse Synchro results", () => {
 
   test("delay", () => {
     let delays = [];
-    for (const intersection of Object.values(results)) {
+    for (const intersection of results) {
       delays.push(intersection.delay);
     }
     expect(delays).toEqual([
@@ -102,7 +104,7 @@ describe("parse Synchro results", () => {
 
   test("v/c", () => {
     let vc = [];
-    for (const intersection of Object.values(results)) {
+    for (const intersection of results) {
       vc.push(intersection.vc);
     }
     expect(vc).toMatchInlineSnapshot(`
