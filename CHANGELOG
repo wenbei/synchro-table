@@ -1,0 +1,19 @@
+# Changelog
+
+## TODO
+
+- Drag and drop file input
+- Queue results
+
+## Version 1.0.0
+
+First proper release with basic features complete.
+
+- Supported input types:
+  - Synchro signalized
+  - HCM 2000 signalized and unsignalized
+- Input using text paste or file upload
+- Output table
+  - Show LOS, delay, and critical movements
+  - Custom critical threshold
+- Tests with sample files
