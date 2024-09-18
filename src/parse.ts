@@ -58,7 +58,7 @@ export function groupByIntersection(data: row[]) {
   ];
   let groups: rowGroup[] = [];
   let intersection: row[] = [];
-  data.forEach((line: row) => {
+  data.forEach((line) => {
     if (headings.includes(line[0])) {
       groups.push(intersection);
       intersection = [];
@@ -122,7 +122,9 @@ function extractRows(group: rowGroup) {
         data.delay = [row[7], row[1]];
         break;
       case "v/c Ratio":
-        data.vc = row.slice(2);
+        data.vc = row.slice(2).filter((e) => {
+          return e != "";
+        });
         break;
 
       // HCM2000 signalized
@@ -188,9 +190,9 @@ function parseLaneConfig(intersection: UnknownData) {
   let group = intersection.laneGroup;
   let config = intersection.laneConfig;
 
-  group.forEach((lane, index: number) => {
+  group.forEach((lane, index) => {
     if (config[index] == "0" || config[index] == "") {
-      if (intersection.type != "hcm-unsignalized") movements.push("");
+      // if (intersection.type != "hcm-unsignalized") movements.push("");
       return;
     }
 
@@ -249,7 +251,7 @@ function HCM2000_Signalized(data: HCM2000_Signalized_Data) {
 
 function HCM2000_Unsignalized(data: HCM2000_Unsignalized_Data) {
   // find max delay
-  let delays = data.movementDelay.map((d: string) => parseFloat(d));
+  let delays = data.movementDelay.map((d) => parseFloat(d));
   let i = delays.indexOf(Math.max(...delays));
   let movements = parseLaneConfig(data);
   let lane = [movements[i]];

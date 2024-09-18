@@ -1,12 +1,12 @@
 <script lang="ts">
   import { groupByIntersection, parseCSV, parseResults, type results } from "src/parse";
+  import { version } from "../package.json";
 
   let files: FileList;
   let inputText = "";
 
   let results: results = [];
-
-  let criticaVC = 0.85;
+  let criticalVC = 0.85;
 
   async function pasteFile() {
     let file = files[0];
@@ -32,7 +32,7 @@
       bind:value={inputText}
       on:input={update}
       wrap="off"
-      placeholder="Paste Synchro output here"
+      placeholder="Paste output text here. Support types: Synchro, HCM2000"
       spellcheck="false"
       class="shrink-0 grow text-nowrap border-2 border-black p-1"></textarea>
   </div>
@@ -40,7 +40,7 @@
   <div class="shrink-0 grow basis-1/2 p-1">
     <div>
       <h4 class="font-bold">Options:</h4>
-      <span>Critical v/c Ratio</span><input bind:value={criticaVC} class="m-2 w-20 border border-black" />
+      <span>Critical v/c Ratio</span><input bind:value={criticalVC} class="m-2 w-20 border border-black" />
     </div>
 
     <table class="w-full table-auto border-2 border-black text-center">
@@ -52,22 +52,24 @@
       </thead>
       <tbody>
         {#each results as row}
-          <tr>
+          <tr class="border border-black">
             <td> {row.name} </td>
             <!-- <td> {row.type}</td> -->
             <td> {row.delay[0]} ({Math.round(parseFloat(row.delay[1]))})</td>
             <td>
-              {#each row.vc as vc, index}
-                {#if row.type != "hcm-unsignalized"}
-                  {#if parseFloat(vc) >= criticaVC}
-                    {row.movements[index]} ({vc.padEnd(4, "0")})<br />
-                  {/if}
+              {#if row.type != "hcm-unsignalized"}
+                {#if Math.max(...row.vc.map(parseFloat)) >= criticalVC}
+                  {#each row.vc as vc, index}
+                    {#if parseFloat(vc) >= criticalVC}
+                      {row.movements[index]} ({vc.padEnd(4, "0")})<br />
+                    {/if}
+                  {/each}
                 {:else}
-                  {row.movements[index]} ({vc.padEnd(4, "0")})<br />
+                  --
                 {/if}
               {:else}
-                --
-              {/each}
+                {row.movements[0]} ({row.vc[0].padEnd(4, "0")})<br />
+              {/if}
             </td>
           </tr>
         {/each}
@@ -77,8 +79,9 @@
 </main>
 
 <footer>
-  Disclaimer: This web application is provided "as is". The author does not take responsibility for the accuracy of the
-  provided information. Please do your due dilligence and apply engineering judgement.
+  <small>V{version} </small><br />
+  Disclaimer: This web application is provided "as is". The author does not take responsibility for the accuracy of the provided
+  information. Please do your due dilligence and apply engineering judgement.
 </footer>
 
 <style global lang="postcss">
